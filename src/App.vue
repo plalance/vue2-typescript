@@ -1,19 +1,40 @@
 <template>
-    <div>Nombre {{ start + number }}</div>
+    <div>
+        <div>Nombre du store {{ countValue }}</div>
+        <button @click="incr(3)">Ajouter 3</button>
+        <button @click="decr(2)">Enlever 2</button>
+        <button @click="testAction">Tester un dispatch (decr de 12)</button>
+    </div>
+
 </template>
 
 <script lang="ts">
     import {Vue, Component, Prop} from 'vue-property-decorator'
-    import {Criteria} from "./criteria/Criteria";
-    import {SimpleCriterion} from "./criteria/SimpleCriterion";
-    import {LogicalCriterion} from "./criteria/LogicalCriterion";
+    import {mapGetters, mapActions} from 'vuex';
 
-    @Component({})
+
+    @Component({
+        computed: {
+            ...mapGetters([
+                'countValue'
+            ])
+        },
+        methods: {
+            ...mapActions([
+                'incr',
+                'decr'
+            ])
+        }
+    })
     export default class App extends Vue {
         /** Props
          ** https://github.com/Microsoft/TypeScript-Vue-Starter#using-decorators-to-define-a-component
          **/
         @Prop() start!: number;
+
+        private testAction(){
+            this.$store.dispatch('decr', 12);
+        }
 
         // Datas
         number: number = 15;
@@ -27,10 +48,6 @@
         }
         mounted(){
             console.log('App Mounted');
-            let criteria : Criteria = new Criteria();
-            criteria.add(SimpleCriterion.addEquals("etsId", 99));
-
-            console.log(JSON.stringify(criteria));
         }
     }
 </script>
