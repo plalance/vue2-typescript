@@ -4,11 +4,13 @@ import { RouterOptions, Location, RouteConfig, Route } from "vue-router";
 import VueRouter from "vue-router";
 declare var require: any;
 
-import './Scss/main.scss'
+import M from './Libraries/materialize.js';
 
 import App from './App.vue'
 import store from './Store'
 import router from "./Router";
+
+window.M = M;
 
 Vue.config.devtools = true; //enable debug for build
 

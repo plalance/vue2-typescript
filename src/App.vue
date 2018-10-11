@@ -1,6 +1,8 @@
 <template>
     <div>
+        <vheader></vheader>
         <h1>Application</h1>
+
         <router-link to="/">
             <span class="nav-link">Home</span>
         </router-link>
@@ -20,10 +22,15 @@
 </template>
 
 <script lang="ts">
-    import {Vue, Component, Prop } from 'vue-property-decorator'
+    import {Vue, Component, Prop} from 'vue-property-decorator';
     import {mapGetters, mapActions} from 'vuex';
+    import Header from './Components/Header.vue';
 
     @Component({
+        name: 'App',
+        components: {
+            'vheader': Header
+        },
         computed: {
             ...mapGetters([])
         },
@@ -37,14 +44,10 @@
          **/
         @Prop() start!: number;
 
-        created(){
-            console.log('App Created');
-        }
-        beforeMount(){
-            console.log('App Before Mount');
-        }
-        mounted(){
-            console.log('App Mounted');
-        }
+        created() {}
+
+        beforeMount() {}
+
+        mounted() {}
     }
 </script>

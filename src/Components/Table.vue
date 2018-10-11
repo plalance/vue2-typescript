@@ -77,9 +77,9 @@
             return (this.somme / this.cities.length);
         }
         get somme(){
-            let total: number = 0;
+            let total = 0;
             this.cities.forEach(function (el) {
-                total += parseFloat(el.number);
+                total += parseFloat(el['number']);
             });
             return total;
         }

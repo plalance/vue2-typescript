@@ -9,7 +9,6 @@ import Villes from '../Pages/Villes.vue'
 import Contact from '../Pages/Contact.vue'
 import ErrorPage from '../Pages/Errors/ErrorPage.vue'
 
-
 Vue.use(VueRouter);
 
 const router = new VueRouter({
