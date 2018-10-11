@@ -29,7 +29,87 @@
         npm run dev OU yarn run dev
         Lancer la page index.html /web/index.html OU localhost:8000
         
-## Structure du projet
+## A propos du typescript
+
+La syntaxe typescript impose des changements dans l'interprétation des composants Vue.
+Depuis la version 2.5 Vue / Vuex et vue-router sont parfaitement implémentables en ES7 / Typescript.
+
+Exemple d'un composant Typesccript (.vue interprêté par ts-loader)
+
+        // Template comme auparavant, rien ne change ici
+        <template>
+            <div>
+                <h2>Home !!</h2>
+                <div>Nombre du store {{ countValue }}</div>
+                <button @click="incr(3)">Ajouter 3</button>
+                <button @click="decr(2)">Enlever 2</button>
+                <button @click="testAction">Tester un dispatch (decr de 12)</button>
+            </div>
+        </template>
+        
+        // Ajout de la référence lang="ts" qui permet au ts loader de passer dessus
+        <script lang="ts">
+        
+            // Au lieu d'importer Vue from "vue", on utilise le vu-property-decorator
+            // qui permettra d'annoter la classe et ses méthodes pour traduire le typescript en fonctions Vue
+            
+            import {Vue, Component, Prop} from 'vue-property-decorator'
+            
+            // Import des mapgetters et mapaction comme auparavant
+            
+            import {mapGetters, mapActions} from 'vuex';
+        
+            // La décoration @Component permet de définir tout ou partie des ancins objets du composant Vue.
+            
+            @Component({
+                computed: {
+                    ...mapGetters([
+                        'countValue'
+                    ])
+                },
+                methods: {
+                    ...mapActions([
+                        'incr',
+                        'decr'
+                    ])
+                }
+            })
+            
+            // Ici nous n'exportons plus un objet Vue mais bien une classe qui en hérite.
+            
+            export default class Home extends Vue {
+            
+                //Les méthodes nommées correspondent aux ancinnes méthodes situés dans l'objet methods:{}
+                
+                private testAction(){
+                    this.$store.dispatch('decr', 12);
+                }
+            
+                // les éléments models du data Auparavant : 
+                // data: function(){
+                //   return {
+                     item: value
+                     }  
+                // }
+                // Peuvent désormais être écrites directement comme des propriétés de la classe, avec leur type :
+                // nomDeMaData: sonType = valeur;
+                // Les datas sont toujours accessibles dans l'instance de classe au travers de this.maData
+                
+                number: number = 15;
+                msg: string = "Salut les gens !!";
+        
+                Les objets created / beforeMount / mounted du cycle de vie de Vue sont toujours disponible au travers de méthodes de la classe appellées :
+                created(){
+                    console.log('Home Created');
+                }
+                beforeMount(){
+                    console.log('Home Before Mount');
+                }
+                mounted(){
+                    console.log('Home Mounted');
+                }
+            }
+        </script>
 
 ## Structure fichiers SASS et notation BEM
 
