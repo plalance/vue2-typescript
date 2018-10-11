@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack:///./src/Scss/src/Scss/_component.scss","webpack:///./src/Scss/src/Scss/main.scss"],"names":[],"mappings":"AAAA;EACE,iBAAgB,EACjB;;ACAD;EACE,UAAS;EACT,cAAa,EACd","file":"main.css","sourcesContent":["ul{\r\n  list-style: none;\r\n}","@import \"./component.scss\";\r\n\r\nbody{\r\n  margin: 0;\r\n  padding: 10px;\r\n}"],"sourceRoot":""}

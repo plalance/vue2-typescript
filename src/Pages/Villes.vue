@@ -25,7 +25,7 @@
         private testAction() {
             this.$store.dispatch('decr', 12);
         }
-        
+
         number: number = 15;
         msg: string = "Salut les gens !!";
 

@@ -4,6 +4,8 @@ import { RouterOptions, Location, RouteConfig, Route } from "vue-router";
 import VueRouter from "vue-router";
 declare var require: any;
 
+import './Scss/main.scss'
+
 import App from './App.vue'
 import store from './Store'
 import router from "./Router";
