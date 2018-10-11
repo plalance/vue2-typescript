@@ -25,21 +25,14 @@
         private testAction() {
             this.$store.dispatch('decr', 12);
         }
-
-        // Datas
+        
         number: number = 15;
         msg: string = "Salut les gens !!";
 
-        created() {
-            console.log('App Created');
-        }
+        created() {}
 
-        beforeMount() {
-            console.log('App Before Mount');
-        }
+        beforeMount() {}
 
-        mounted() {
-            console.log('App Mounted');
-        }
+        mounted() {}
     }
 </script>
