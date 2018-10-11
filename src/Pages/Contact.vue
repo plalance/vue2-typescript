@@ -1,16 +1,6 @@
 <template>
     <div>
-        <h1>Application</h1>
-        <router-link to="/">
-            <a class="nav-link">Home</a>
-        </router-link>
-        <router-link to="/contact">
-            <a class="nav-link">Contact</a>
-        </router-link>
-
-        <transition name="slide">
-            <router-view></router-view>
-        </transition>
+        <h2>Page de contact</h2>
     </div>
 </template>
 
@@ -20,17 +10,29 @@
 
     @Component({
         computed: {
-            ...mapGetters([])
+            ...mapGetters([
+                'countValue'
+            ])
         },
         methods: {
-            ...mapActions([])
+            ...mapActions([
+                'incr',
+                'decr'
+            ])
         }
     })
-    export default class App extends Vue {
+    export default class Contact extends Vue {
         /** Props
          ** https://github.com/Microsoft/TypeScript-Vue-Starter#using-decorators-to-define-a-component
          **/
-        @Prop() start!: number;
+
+        private testAction(){
+            this.$store.dispatch('decr', 12);
+        }
+
+        // Datas
+        number: number = 15;
+        msg: string = "Salut les gens !!";
 
         created(){
             console.log('App Created');
