@@ -6,7 +6,7 @@ let config = {
     entry: './src/main.ts',
     mode: 'development',
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(__dirname, './dist'),
         publicPath: "/dist",
         filename: "main.js"
     },
