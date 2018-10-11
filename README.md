@@ -8,6 +8,15 @@
 |Vue-X|https://vuex.vuejs.org/guide/|Gestionnaire de State et Commit / Dispatcher d'objets JS dans tous les composants Vue|
 |Vue-Cookie| https://github.com/alfhen/vue-cookie | Plugin Vue-JS de manipulation de cookies |
 
+NOUVEAU depusi le passage au typescript :
+
+- J'ai choisi de ne plus utiliser brunch, faute de compatibilité et du peu de documentation sur Vue / typescript / vuex Typescript et Brunch j'utilkise donc Webpack dans sa version 4.XX
+- Ajout de typescript pour l'interpretation typescript
+- Ajout du ts-loader pour la recompilation des fichiers .ts et .vue annotés
+- Ajout du vuex-module-decorators, sur la base du vue-property-decorator, permet de décorer et traduire des classes Custom vuex typescript
+- Ajout du vuex-type-helper, pour la conformité des typages de variable dans le store
+
+
 ## Utile
 
 | Technologie   |     Doc         |     Infos supplémentaires         |
