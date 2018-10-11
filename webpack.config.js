@@ -1,9 +1,10 @@
-const path = require('path')
-const webpack = require('webpack')
-const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const path = require('path');
+const webpack = require('webpack');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 let config = {
-    entry: './src/main.ts',
+    entry: ['./src/main.ts', './src/Scss/main.scss'],
     mode: 'development',
     output: {
         path: path.resolve(__dirname, './dist'),
@@ -19,6 +20,7 @@ let config = {
     },
     module: {
         rules: [
+            // JS Files
             {
                 test: /\.ts$/,
                 loader: 'ts-loader',
@@ -29,11 +31,31 @@ let config = {
             {
                 test: /\.vue$/,
                 loader: 'vue-loader'
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                            sourceMap: true,
+                            importLoader: 2
+                        }
+                    },
+                    "sass-loader"
+                ]
             }
         ]
     },
     plugins: [
-        new VueLoaderPlugin()
+        new VueLoaderPlugin(),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: "style.css"
+        })
     ]
 };
 

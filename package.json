@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "webpack-dev-server --hot",
-    "build": "cross-env NODE_ENV=production webpack",
+    "build": "cross-env NODE_ENV=development webpack",
     "watch": "cross-env NODE_ENV=development webpack --watch"
   },
   "keywords": [],
@@ -23,8 +23,13 @@
     "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
+    "css-loader": "^1.0.0",
     "es6-promise": "^4.2.5",
+    "mini-css-extract-plugin": "^0.4.4",
+    "node-sass": "^4.9.3",
     "path": "^0.12.7",
+    "postcss-loader": "^3.0.0",
+    "sass-loader": "^7.1.0",
     "vue": "^2.5.17",
     "vue-property-decorator": "^7.2.0",
     "vue-router": "^3.0.1",

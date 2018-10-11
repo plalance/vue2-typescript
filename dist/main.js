@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/main.ts");
+/******/ 	return __webpack_require__(__webpack_require__.s = 0);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -489,6 +489,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue_
 
 /***/ }),
 
+/***/ "./src/Scss/main.scss":
+/*!****************************!*\
+  !*** ./src/Scss/main.scss ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("// extracted by mini-css-extract-plugin\n\n//# sourceURL=webpack:///./src/Scss/main.scss?");
+
+/***/ }),
+
 /***/ "./src/Store/index.ts":
 /*!****************************!*\
   !*** ./src/Store/index.ts ***!
@@ -522,6 +533,17 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vuex
 
 "use strict";
 eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-property-decorator */ \"./node_modules/vue-property-decorator/lib/vue-property-decorator.js\");\n/* harmony import */ var es6_promise_auto__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! es6-promise/auto */ \"./node_modules/es6-promise/auto.js\");\n/* harmony import */ var es6_promise_auto__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(es6_promise_auto__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App.vue */ \"./src/App.vue\");\n/* harmony import */ var _Store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Store */ \"./src/Store/index.ts\");\n/* harmony import */ var _Router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./Router */ \"./src/Router/index.ts\");\n\r\n\r\n\r\n\r\n\r\nvue_property_decorator__WEBPACK_IMPORTED_MODULE_0__[\"Vue\"].config.devtools = true; //enable debug for build\r\nnew vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__[\"Vue\"]({\r\n    el: document.querySelector('#app'),\r\n    store: _Store__WEBPACK_IMPORTED_MODULE_3__[\"default\"],\r\n    router: _Router__WEBPACK_IMPORTED_MODULE_4__[\"default\"],\r\n    components: { App: _App_vue__WEBPACK_IMPORTED_MODULE_2__[\"default\"] },\r\n    render: function (h) {\r\n        return h('App', { attrs: { start: 100 } });\r\n    }\r\n});\r\n\n\n//# sourceURL=webpack:///./src/main.ts?");
+
+/***/ }),
+
+/***/ 0:
+/*!************************************************!*\
+  !*** multi ./src/main.ts ./src/Scss/main.scss ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("__webpack_require__(/*! ./src/main.ts */\"./src/main.ts\");\nmodule.exports = __webpack_require__(/*! ./src/Scss/main.scss */\"./src/Scss/main.scss\");\n\n\n//# sourceURL=webpack:///multi_./src/main.ts_./src/Scss/main.scss?");
 
 /***/ })
 
