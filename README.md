@@ -3,11 +3,8 @@
 
 | Technologie / Composants   |     Doc         |     Infos supplémentaires         |
 | :------------ | :-------------: |:-------------: |
-|VueJs2        |https://vuejs.org/v2/guide/| Framework Front-End|
+|Vue 2 (Version 2.5.*)        |https://vuejs.org/v2/guide/| Framework Front-End|
 |Axios         |https://github.com/axios/axios|Pour les promesses de requettes HTTP PUT / GET / POST|
-|Vue-Axios     |https://www.npmjs.com/package/vue-axios|Wrapper Axios VueJs 2|
-|Lodash         |https://lodash.com/|Librairie facilitant la manipulation / opérations sur les objets javascripts|
-|Vue I18n|https://kazupon.github.io/vue-i18n/|Plugin d'internationalisation d'appli Vue|
 |Vue-X|https://vuex.vuejs.org/guide/|Gestionnaire de State et Commit / Dispatcher d'objets JS dans tous les composants Vue|
 |Vue-Cookie| https://github.com/alfhen/vue-cookie | Plugin Vue-JS de manipulation de cookies |
 
@@ -23,8 +20,6 @@
 - NodeJs / Npm (voir https://nodejs.org/en/download/ pour installatateur windows)
 - Avoir mis à jour sa version npm (https://www.npmjs.com/package/latest-version)
 		npm install --save latest-version
-- Installation de Brunch pour compilation des assets, JS, et Scss, templates Vue
-		npm install -g brunch
 - Git installé (gitflow optionnel)
         
 ## Install
@@ -32,7 +27,7 @@
         git clone <rrepos>  ...Fichiers source
         yarn install        ...Dépendancess NPM
         npm run dev OU yarn run dev
-        Lancer la page index.html /web/index.html OU appeler l'url du site.
+        Lancer la page index.html /web/index.html OU localhost:8000
         
 ## Structure du projet
 
@@ -184,174 +179,24 @@ Les getters sont récupérables de la même manière, au moyen du mapGetters que
 
 Exemple complet du script du composant header (simplifié) :
 
-    <script>
-                     import {mapGetters, mapActions} from 'vuex';
-                 
-                     export default {
-                         name: 'Header',
-                         data() {
-                             return {}
-                         },
-                         computed: {
-                             ...mapGetters([
-                                 'sideNavActive'             // La valeur du state est transmise grace au getter
-                                                             // Appelable via this.sideNavActive
-                             ])
-                         },
-                         methods: {
-                             ...mapActions([
-                                 'toggleSideNav'             // La méthode du store est déosormais
-                                                             // appelable via this.toggleSideNav();
-                                                             
-                             ]),
-                             testAction(){***}               // Méthode à appeler via this.testAction();
-                             // Mes autres méthoedes ici
-                         },
-                     };
-                 </script>
+    script à venir, nouvelle syntaxe stypescript / classes javascript et décorateurs
 
 On peut mapper les actions du store pour leur donner un nouveau nom au sein de notre composant. POur ne aps entrer en conflit au cas ou :
 
     ...mapActions({
           maMethodeRenomme:'toggleSideNav'             // La méthode du store toggleSideNav est déosormais
                                                          // mappée et appelable via this.maMethodeRenomme();
-                                      
       }),
 
 A noter que poura voir accès au mapAction et mapGetters dans un composant, il faut les importer depuis VueX
 
     import {mapGetters, mapActions} from 'vuex';
- 
-## traduction (Vue - I18n)
-
-Les éléments de l'interface sont traduits à la volée grâce au composant core vue-i18n implémenté dans app.js.
-
-Emplacement : web/traductions
-Format des fichiers : json
-
-Les deux fichiers sont inclus par require('fichier.json') grâce au plugin json-brunch.
-
-Process :
-Les fichiers sont required lors de l'initialisation de l'instance Vue (app.js)
-
-Les trableaux issus de ces json sont stockés et définis en propriété globale Vue, accessible dans tout l'application.
-
-Exemple :
-
-        // Inclusion des json de traduction
-       let fr_traductions = require('../../web/traductions/fr.json');
-       
-       // Mise sous forme d'objet javascript structuré
-       const trads = {
-           fr: {
-               api_choices: fr_traductions.trads.api_choices,
-               routes: fr_traductions.trads.routes,
-               interface: fr_traductions.trads.interface,
-               language: fr_traductions.trads.language,
-               forms: fr_traductions.trads.forms,
-               action: fr_traductions.trads.action,
-               nvms_codes: fr_traductions.trads.nvms_codes,
-           }
-       };
-       
-       // Traductions chargées dans le composant Vue I128n
-       let i18n = new VueI18n({
-           locale: 'fr, // set locale
-           fallbackLocale: 'fr', // locale if default not found
-           messages: trads, // set locale messages
-       });
-       
-L'instance vue-i18n est associée à l'instance vue dès le départ. Ainsi pas besoin d'inclure i18n dans chaque composant enfant.
-
-Utilisation dans un template Vue SFC (Single File Component) :
-
-        <div id="app">
-          <p>{{ $t("api_choices[0].name") }}</p>
-        </div>
-        
-Ici la locale est fr, I18 ira donc chercher dans trads.fr.api_choices le premier objet et affichera son nom.
-Il affichera donc "Vérification" (voir exemple de fichier de traduction ci dessous)
-
-#### Structure du fichier de traduction
-
-        {
-          "trads": {
-            "api_choices": [
-              {
-                "name": "Vérification",
-                "code": "G110"
-              },
-              {
-                "name": "Distribution",
-                "code": "G120",
-                "codeUndo": "G121",
-                "codeManual": "G122",
-                "codeUndoManual": "G123"
-               }
-               ...
-            ],
-            "routes": {
-              "home": "Accueil",
-              "singlepack": "Traitement unitaire",
-              "bulk": "Traitement par lot"
-              ...
-            },
-            "interface": {
-              "send_button": "Envoyer",
-              "erase_button": "Effacer",
-              ...
-             },
-            "language": {
-              "en": "Anglais",
-              "fr": "Français"
-            },
-            "action": {
-              "type": "Procédure",
-              ...
-            },
-            "forms": {
-              "service_selection": "Choix du service",
-              "singlepack": {
-                "product_code": "Code produit",
-                "pack_serialnumber": "Numéro de l'article",
-                "batch_id": "Identifiant du lot",
-                "batch_expedition_date": "Date d'expédition du lot (JJ/MM/AAAA)"
-              }
-            },
-            "nvms_codes": {
-              "NMVS_SUCCESS": "Opération effectuée avec succès.",
-              "NMVS_TI_AU_01": "Erreur NMVS : L'authentification à échoué.",
-               ...
-            }
-          }
-        }
-    
-## Définition des services accessibles dans l'interface
-
-Les services d'API listés dans l'application sont ceux définit dans les fichiers de traduction fr.json / en.json
-
-Si les services ne sont aps définis dans ces fichiers, l'application ne fonctionnepa, car le tabelau d'objet API_CHOICES est tiré du json fr.json parsé.
-
-Format pour un service dans api_choices: 
-La génération des choix "manual", "undo" est automatique selon la structure de l'objet.
-Si codeUndo n'est pas présent, l'utilisateur ne voit pas l'option "Undo" dans la catégorie de service.
-
-    {
-        name: 'Example of service',
-        code: 'G120',
-        codeManual: 'G122',
-        codeUndo: 'G121',
-        codeUndoManual: 'G125'
-    }
-
-Implémenter le même service dans le ficher en.json pour que tout fonctionne correctement en front.
- 
     
 ## Routeur spécifique
 
 J'ai implémenté le router de vue (vue-router) sous la forme d'un module javascript.
         
-        /build/vue/Router
+        /src/Router
 
 router.js : Définit l'implémentation du vue-router et les règles de routing. Accepter ou non certaines routes / redirections / règles de sécurité... à définir.
 routing.js : Définition des routes sous forme d'objet javascript :
@@ -365,7 +210,7 @@ routing.js : Définition des routes sous forme d'objet javascript :
             visible: true,
             icon: 'dashboard'
         },
-        component: require('../Pages/Home')
+        component: SuperComponent
     },
         
 | Propriété   |     Infos      |
@@ -484,25 +329,3 @@ et qui possède le requireAuth à true : Ce qui implique qu'au niveau du router 
          },
          component: require('../Pages/SinglePack')
      },
-     
-## Animations
-
-3 animations sont présentes sur tuote l'applciation et sont controlables intégralement par le store.
-
-- Le loader d'applciation (pleine page)
-- Le loader d'action (en haut à droite, circulaire)
-- les notifications en haut à droite (appelés Toasts)
-
-#### Pour envoyer un toast
-
-Dans un composant Vue : 
-
-    // true = success green notif | false = red error notif
-    this.$store.dispath('toasttext', [  true, 'Texte de la notification'] );
-    
-Exemple de la notification de conenxion réussie appelée par le store : <br>
-Ici this.$store est rempalcé par dispatch, car dans une action l'objet dispatch est accessible directement.
-
-    // Send Success notif
-    dispatch('toastText', [true, 'Authentification réussie.']);
-    
