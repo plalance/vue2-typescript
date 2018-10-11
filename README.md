@@ -40,6 +40,8 @@ NOUVEAU depusi le passage au typescript :
         
 ## A propos du typescript
 
+### Pour les composants Vue
+
 La syntaxe typescript impose des changements dans l'interprétation des composants Vue.
 Depuis la version 2.5 Vue / Vuex et vue-router sont parfaitement implémentables en ES7 / Typescript.
 
@@ -120,84 +122,64 @@ Exemple d'un composant Typesccript (.vue interprêté par ts-loader)
             }
         </script>
 
-## Structure fichiers SASS et notation BEM
+### Pour le Store
 
-#### Structure
+Le store change lui aussi dans son implémentation. La déclaration ne change pas mais les modules ne s'écrivent plus comme avant :
 
-La structure sass est la suivante :
+Déclaration du store :
 
-UN fichier main.scss principal.
-
-Les modules scss (partials) doivent être préfixés d'un underscore " _ " pour ne pas être compilés 2 fois par brunch.
-
-Les fichiers suivants : _exemple.scss ne sont pas compilés sauf s'ils sont inclus dans un autre.
-
-Exemple :
-
-Dans main.scss
-
-@import "./components/button";
-
-Dans /build/scss/components/button.scss :
-
-.button{
-    ...
-}
-
-#### Notation BEM
-
-J'ai choisi d'utiliser la notation OOCS (Object Oriented CSS), elle n'est pas obligatoire.
-
-Exemple avec sass :
-
-    <div class="component">
-      <div class="component__child-element"></div>
-    </div>
-    <div class="component">
-      <div class="component__child-element"></div>
-    </div>
-    
-    .component {
-      display: block;
-      max-width: 30rem;
-       
-      &__child-element {
-        border-radius: 50%;
-        position: absolute;
-        top: 50%;
-      }
-    }
-
-Les éléments de premier rang sont les <strong>conteneurs<strong/>.
-
-Les élements avec double underscore " __ " sont des <strong>objets<strong/>.
-
-Les éléments avec " -- " sont des <strong>mofifiers</strong> 
-
-Exemple de "conteneur" / "éléments" / élément avec "modifier" :
-
-Un "modifier" permet de définir le style d'un élément dans un contexte particulier ou qui possède différentes variantes.
-
-Exemple : les modifiers --blue, --large, --hidden
-
-Exemple complet :
-
-    .block{             // Block est conteneur
+        /** Vue + Vuex **/
+        import Vue from 'vue';
+        import Vuex, {Module} from 'vuex'
         
-        &__title{       // Title est élément. Correspond à .block__title
-            ...
-        }
+        /** Modules **/
+        import counter from './modules/counter';
         
-        &__button {     // Button est un autre élément. Correspond à .block__button
-            ...
-            
-            &--large {  // Modifier --large. Correspond à .block__button--large
-                ...
+        Vue.use(Vuex);
+        
+        const store = new Vuex.Store({
+            state: {},
+            modules: {
+                counter
             }
-        }
+        });
         
-    }
-    
+        export default store;
+        
+        
+Exemple du module counter :
+
+        import {Module, VuexModule, Mutation, Action} from 'vuex-module-decorators'
+        
+        @Module
+        export default class exemple extends VuexModule {
+            count: number = 0;
+            name: string = "Toto";
+        
+            @Mutation INCREMENT(delta: number) {this.count+=delta}
+            @Mutation DECREMENT(delta: number) {this.count-=delta}
+        
+            @Action
+            incr(delta: number) {
+                console.log('Action "incr" va commiter INCREMENT');
+                this.context.commit("INCREMENT", delta);
+            }
+        
+            // @Action({commit: 'decrement'}) decr(delta: number) {return 5}
+            // OU
+            @Action
+            decr(delta: number) {
+                console.log('Action "decr" va commiter DECREMENT');
+                this.context.commit("DECREMENT", delta);
+            }
+        
+            /** Getters **/
+            get countValue() {
+                return (this.count)
+            }
+        
+        }
+
 ## Le Store VueX
 
 ### Le store
@@ -212,7 +194,7 @@ les actions, des fonctions qui déclenchent une ou plusieurs mutations et faisan
 En complément, les getters sont les fonctions par lesquelles ont peut “lire” le state.
 
 
-### Configuration
+### Configuration du store sans TYPESCRIPT (ancienne version)
 
 Définition d'un state ( = Variable qui sera manipulée par VueX au travers de méthodes, méthodes appelées par nos composants)
 
@@ -280,6 +262,7 @@ On peut mapper les actions du store pour leur donner un nouveau nom au sein de n
 A noter que poura voir accès au mapAction et mapGetters dans un composant, il faut les importer depuis VueX
 
     import {mapGetters, mapActions} from 'vuex';
+    
     
 ## Routeur spécifique
 
