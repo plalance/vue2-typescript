@@ -2,10 +2,15 @@
     <div>
         <h1>Application</h1>
         <router-link to="/">
-            <a class="nav-link">Home</a>
+            <span class="nav-link">Home</span>
         </router-link>
+
+        <router-link to="/cities">
+            <span class="nav-link">Cities</span>
+        </router-link>
+
         <router-link to="/contact">
-            <a class="nav-link">Contact</a>
+            <span class="nav-link">Contact</span>
         </router-link>
 
         <transition name="slide">
@@ -15,7 +20,7 @@
 </template>
 
 <script lang="ts">
-    import {Vue, Component, Prop} from 'vue-property-decorator'
+    import {Vue, Component, Prop } from 'vue-property-decorator'
     import {mapGetters, mapActions} from 'vuex';
 
     @Component({

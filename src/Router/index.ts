@@ -5,6 +5,7 @@ declare var require: any;
 
 //var separatets = require( '../Views/separatets.vue').default
 import Home from '../Pages/home.vue'
+import Villes from '../Pages/Villes.vue'
 import Contact from '../Pages/Contact.vue'
 import ErrorPage from '../Pages/Errors/ErrorPage.vue'
 
@@ -39,6 +40,19 @@ const router = new VueRouter({
                 requireAuth: false
             },
             component: Contact
+        },
+        {
+            path: "/cities",
+            name: "cities",
+            meta: {
+                title: "Villes",
+                admin: false,
+                visible: true,
+                accessible: true,
+                icon: "dashboard",
+                requireAuth: false
+            },
+            component: Villes
         },
         {
             path: "*",
