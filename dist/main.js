@@ -1878,7 +1878,7 @@ var Header = /** @class */ (function (_super) {
     };
     Header.prototype.mounted = function () {
         var elems = document.querySelectorAll('.sidenav');
-        var instances = M.Sidenav.init(elems, {});
+        var instances = window.M.Sidenav.init(elems, {});
     };
     Header = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Component"])({
@@ -28360,10 +28360,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
 window.M = _Libraries_materialize_js__WEBPACK_IMPORTED_MODULE_2___default.a;
+
+
+
 vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Vue"].config.devtools = true; //enable debug for build
 new vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Vue"]({
     el: document.querySelector('#app'),

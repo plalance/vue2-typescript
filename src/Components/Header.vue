@@ -42,7 +42,7 @@
 
         mounted() {
             var elems = document.querySelectorAll('.sidenav');
-            var instances = M.Sidenav.init(elems, {});
+            var instances = (<any>window).M.Sidenav.init(elems, {});
         }
     }
 </script>

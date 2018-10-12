@@ -5,12 +5,12 @@ import VueRouter from "vue-router";
 declare var require: any;
 
 import M from './Libraries/materialize.js';
+(<any>window).M = M;
 
 import App from './App.vue'
 import store from './Store'
 import router from "./Router";
 
-window.M = M;
 
 Vue.config.devtools = true; //enable debug for build
 
