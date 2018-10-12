@@ -4,7 +4,7 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 let config = {
-        entry: ['./src/main.ts'],
+        entry: ['./src/main.ts', './src/Scss/main.scss'],
         mode: 'development',
         output: {
             path: path.resolve(__dirname, './dist'),

@@ -5,6 +5,8 @@
         <button @click="incr(3)">Ajouter 3</button>
         <button @click="decr(2)">Enlever 2</button>
         <button @click="testAction">Tester un dispatch (decr de 12)</button>
+        <input v-model="name" />
+        <button @click="changeName(name)">Change Name</button>
     </div>
 </template>
 
@@ -15,13 +17,15 @@
     @Component({
         computed: {
             ...mapGetters([
-                'countValue'
+                'countValue',
+                'personFullName'
             ])
         },
         methods: {
             ...mapActions([
                 'incr',
-                'decr'
+                'decr',
+                'changeName'
             ])
         }
     })
@@ -33,6 +37,7 @@
         // Datas
         number: number = 15;
         msg: string = "Salut les gens !!";
+        name: string = "";
 
         created(){
             console.log('Home Created');

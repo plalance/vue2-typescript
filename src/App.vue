@@ -44,6 +44,9 @@
          **/
         @Prop() start!: number;
 
+        number: number = 0;
+
+
         created() {}
 
         beforeMount() {}

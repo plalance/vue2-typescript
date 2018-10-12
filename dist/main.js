@@ -1812,7 +1812,9 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
 var App = /** @class */ (function (_super) {
     __extends(App, _super);
     function App() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.number = 0;
+        return _this;
     }
     App.prototype.created = function () { };
     App.prototype.beforeMount = function () { };
@@ -2239,6 +2241,7 @@ var Home = /** @class */ (function (_super) {
         // Datas
         _this.number = 15;
         _this.msg = "Salut les gens !!";
+        _this.name = "";
         return _this;
     }
     Home.prototype.testAction = function () {
@@ -2256,11 +2259,13 @@ var Home = /** @class */ (function (_super) {
     Home = __decorate([
         Object(vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Component"])({
             computed: __assign({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])([
-                'countValue'
+                'countValue',
+                'personFullName'
             ])),
             methods: __assign({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])([
                 'incr',
-                'decr'
+                'decr',
+                'changeName'
             ]))
         })
     ], Home);
@@ -2919,7 +2924,39 @@ var render = function() {
     _vm._v(" "),
     _c("button", { on: { click: _vm.testAction } }, [
       _vm._v("Tester un dispatch (decr de 12)")
-    ])
+    ]),
+    _vm._v(" "),
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.name,
+          expression: "name"
+        }
+      ],
+      domProps: { value: _vm.name },
+      on: {
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.name = $event.target.value
+        }
+      }
+    }),
+    _vm._v(" "),
+    _c(
+      "button",
+      {
+        on: {
+          click: function($event) {
+            _vm.changeName(_vm.name)
+          }
+        }
+      },
+      [_vm._v("Change Name")]
+    )
   ])
 }
 var staticRenderFns = []
@@ -28231,6 +28268,17 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 
 /***/ }),
 
+/***/ "./src/Scss/main.scss":
+/*!****************************!*\
+  !*** ./src/Scss/main.scss ***!
+  \****************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+
+/***/ }),
+
 /***/ "./src/Store/index.ts":
 /*!****************************!*\
   !*** ./src/Store/index.ts ***!
@@ -28260,6 +28308,30 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 
 /***/ }),
 
+/***/ "./src/Store/modules/Person.ts":
+/*!*************************************!*\
+  !*** ./src/Store/modules/Person.ts ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var Person = /** @class */ (function () {
+    function Person() {
+        this.name = "";
+        this.lastName = "";
+    }
+    Person.prototype.getFullName = function () {
+        return this.name + ' ' + this.lastName;
+    };
+    return Person;
+}());
+/* harmony default export */ __webpack_exports__["default"] = (Person);
+
+
+/***/ }),
+
 /***/ "./src/Store/modules/counter.ts":
 /*!**************************************!*\
   !*** ./src/Store/modules/counter.ts ***!
@@ -28270,6 +28342,7 @@ var store = new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vuex_module_decorators__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex-module-decorators */ "./node_modules/vuex-module-decorators/dist/esm/index.js");
+/* harmony import */ var _Person__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Person */ "./src/Store/modules/Person.ts");
 var __extends = (undefined && undefined.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -28290,19 +28363,28 @@ var __decorate = (undefined && undefined.__decorate) || function (decorators, ta
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 
+
+var INCREMENT = "INCREMENT";
 var exemple = /** @class */ (function (_super) {
     __extends(exemple, _super);
     function exemple() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.count = 0;
         _this.name = "Toto";
+        _this.object = null;
         return _this;
     }
     exemple.prototype.INCREMENT = function (delta) { this.count += delta; };
     exemple.prototype.DECREMENT = function (delta) { this.count -= delta; };
+    exemple.prototype.CHANGE_NAME = function (data) {
+        if (this.object == null) {
+            this.object = new _Person__WEBPACK_IMPORTED_MODULE_1__["default"]();
+        }
+        this.object.name = data;
+    };
     exemple.prototype.incr = function (delta) {
         console.log('Action "incr" va commiter INCREMENT');
-        this.context.commit("INCREMENT", delta);
+        this.context.commit(INCREMENT, delta);
     };
     // @Action({commit: 'decrement'}) decr(delta: number) {return 5}
     // OU
@@ -28310,10 +28392,18 @@ var exemple = /** @class */ (function (_super) {
         console.log('Action "decr" va commiter DECREMENT');
         this.context.commit("DECREMENT", delta);
     };
+    exemple.prototype.changeName = function (name) { return name; };
     Object.defineProperty(exemple.prototype, "countValue", {
         /** Getters **/
         get: function () {
             return (this.count);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(exemple.prototype, "personFullName", {
+        get: function () {
+            return this.object.getFullName();
         },
         enumerable: true,
         configurable: true
@@ -28325,11 +28415,17 @@ var exemple = /** @class */ (function (_super) {
         vuex_module_decorators__WEBPACK_IMPORTED_MODULE_0__["Mutation"]
     ], exemple.prototype, "DECREMENT", null);
     __decorate([
+        vuex_module_decorators__WEBPACK_IMPORTED_MODULE_0__["Mutation"]
+    ], exemple.prototype, "CHANGE_NAME", null);
+    __decorate([
         vuex_module_decorators__WEBPACK_IMPORTED_MODULE_0__["Action"]
     ], exemple.prototype, "incr", null);
     __decorate([
         vuex_module_decorators__WEBPACK_IMPORTED_MODULE_0__["Action"]
     ], exemple.prototype, "decr", null);
+    __decorate([
+        Object(vuex_module_decorators__WEBPACK_IMPORTED_MODULE_0__["Action"])({ commit: "CHANGE_NAME" })
+    ], exemple.prototype, "changeName", null);
     exemple = __decorate([
         vuex_module_decorators__WEBPACK_IMPORTED_MODULE_0__["Module"]
     ], exemple);
@@ -28379,13 +28475,14 @@ new vue_property_decorator__WEBPACK_IMPORTED_MODULE_0__["Vue"]({
 /***/ }),
 
 /***/ 0:
-/*!***************************!*\
-  !*** multi ./src/main.ts ***!
-  \***************************/
+/*!************************************************!*\
+  !*** multi ./src/main.ts ./src/Scss/main.scss ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! ./src/main.ts */"./src/main.ts");
+__webpack_require__(/*! ./src/main.ts */"./src/main.ts");
+module.exports = __webpack_require__(/*! ./src/Scss/main.scss */"./src/Scss/main.scss");
 
 
 /***/ })
