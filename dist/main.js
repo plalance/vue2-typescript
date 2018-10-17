@@ -28403,7 +28403,7 @@ var exemple = /** @class */ (function (_super) {
     });
     Object.defineProperty(exemple.prototype, "personFullName", {
         get: function () {
-            return this.object.getFullName();
+            return this.object ? this.object.getFullName() : false;
         },
         enumerable: true,
         configurable: true

@@ -40,7 +40,7 @@ export default class exemple extends VuexModule {
     }
 
     get personFullName(){
-        return this.object.getFullName();
+        return this.object ? this.object.getFullName() : false;
     }
 
 }

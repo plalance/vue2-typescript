@@ -15,7 +15,7 @@ let config = {
             extensions: ['.js', '.ts', '.vue']
         },
         devServer: {
-            noInfo: true,
+            // noInfo: true,
             port: 8000
         },
         devtool: "source-map",
